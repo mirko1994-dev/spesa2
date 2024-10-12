@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista della Spesa</title>
+    <script type="text/javascript" src="https://cdn.emailjs.com/sdk/3.2.0/email.min.js"></script>
+    <script type="text/javascript">
+      (function() {
+        emailjs.init("3EEuBe1a1O6G2Qtn7");  // Public Key
+      })();
+      
+      function sendEmail(event) {
+        event.preventDefault(); // Evita il refresh della pagina
+
+        // Raccogli i dati dal form
+        let name = document.getElementById('name').value;
+        let notes = document.getElementById('notes').value;
+        let selectedItems = Array.from(document.querySelectorAll('input[type=checkbox]:checked'))
+                               .map(item => item.value)
+                               .join(', ');
+
+        if (!selectedItems) {
+          alert('Seleziona almeno un elemento dalla lista della spesa!');
+          return;
+        }
+
+        // Parametri per l'invio dell'email
+        let templateParams = {
+          name: name,
+          items: selectedItems,
+          notes: notes
+        };
+
+        // Invio dell'email tramite EmailJS
+        emailjs.send("service_ociyqpl", "template_fcgf19n", templateParams)
+          .then(function(response) {
+            alert('Email inviata con successo!');
+          }, function(error) {
+            alert('Errore nell\'invio dell\'email: ' + JSON.stringify(error));
+          });
+      }
+    </script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        form {
+            margin: 20px;
+        }
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Lista della Spesa</h1>
+
+    <form id="shoppingListForm" onsubmit="sendEmail(event)">
+        <!-- Sezione per inserire il nome -->
+        <h2>Inserisci il tuo nome:</h2>
+        <input type="text" id="name" placeholder="Inserisci il tuo nome" required><br><br>
+
+        <!-- Checklist -->
+        <h3>Seleziona gli elementi da acquistare:</h3>
+        <div>
+            <input type="checkbox" id="item1" value="Alici"> Alici<br>
+            <input type="checkbox" id="item2" value="Basilico"> Basilico<br>
+            <input type="checkbox" id="item3" value="Burro"> Burro<br>
+            <input type="checkbox" id="item4" value="Carne macinata"> Carne macinata<br>
+            <input type="checkbox" id="item5" value="Carote"> Carote<br>
+            <input type="checkbox" id="item6" value="Edamer"> Edamer<br>
+            <input type="checkbox" id="item7" value="Fiori di zucca"> Fiori di zucca<br>
+            <input type="checkbox" id="item8" value="Funghi porcini"> Funghi porcini<br>
+            <input type="checkbox" id="item9" value="Gorgonzola"> Gorgonzola<br>
+            <input type="checkbox" id="item10" value="Granella di pistacchio"> Granella di pistacchio<br>
+            <input type="checkbox" id="item11" value="Grana grattugiato"> Grana grattugiato<br>
+            <input type="checkbox" id="item12" value="Grana intero"> Grana intero<br>
+            <input type="checkbox" id="item13" value="Melenzane"> Melenzane<br>
+            <input type="checkbox" id="item14" value="Mollica"> Mollica<br>
+            <input type="checkbox" id="item15" value="Mortadella"> Mortadella<br>
+            <input type="checkbox" id="item16" value="Mozzarella julienne"> Mozzarella julienne<br>
+            <input type="checkbox" id="item17" value="Nduja"> Nduja<br>
+            <input type="checkbox" id="item18" value="Olio di oliva"> Olio di oliva<br>
+            <input type="checkbox" id="item19" value="Olio per friggere"> Olio per friggere<br>
+            <input type="checkbox" id="item20" value="Panatura gialla croccante"> Panatura gialla croccante<br>
+            <input type="checkbox" id="item21" value="Pancarrè"> Pancarrè<br>
+            <input type="checkbox" id="item22" value="Patate"> Patate<br>
+            <input type="checkbox" id="item23" value="Patatine fritte"> Patatine fritte<br>
+            <input type="checkbox" id="item24" value="Peperoni"> Peperoni<br>
+            <input type="checkbox" id="item25" value="Pesto di pistacchio"> Pesto di pistacchio<br>
+            <input type="checkbox" id="item26" value="Polpa di pomodoro"> Polpa di pomodoro<br>
+            <input type="checkbox" id="item27" value="Passata di pomodoro"> Passata di pomodoro<br>
+            <input type="checkbox" id="item28" value="Prezzemolo"> Prezzemolo<br>
+            <input type="checkbox" id="item29" value="Prosciutto cotto"> Prosciutto cotto<br>
+            <input type="checkbox" id="item30" value="Riso"> Riso<br>
+            <input type="checkbox" id="item31" value="Rucola"> Rucola<br>
+            <input type="checkbox" id="item32" value="Salsiccia"> Salsiccia<br>
+            <input type="checkbox" id="item33" value="Scamorza"> Scamorza<br>
+            <input type="checkbox" id="item34" value="Sfoglia rettangolare"> Sfoglia rettangolare<br>
+            <input type="checkbox" id="item35" value="Speck"> Speck<br>
+            <input type="checkbox" id="item36" value="Uova"> Uova<br>
+            <input type="checkbox" id="item37" value="Wurstel"> Wurstel<br>
+            <input type="checkbox" id="item38" value="Zafferano"> Zafferano<br>
+            <input type="checkbox" id="item39" value="Zucchine"> Zucchine<br>
+        </div>
+
+        <!-- Note -->
+        <h3>Note:</h3>
+        <textarea id="notes" placeholder="Aggiungi eventuali note"></textarea><br><br>
+
+        <!-- Pulsante di invio -->
+        <button type="submit">Invia</button>
+    </form>
+
+</body>
+</html>
